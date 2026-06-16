@@ -22,13 +22,13 @@ public class ProductBasket {
         }
         System.out.println(sum);
     }
-    // Печать каждой общей стоимости корзины
+    // Печать каждой позиции и итого
     public void printSum1(){
         int sum = 0;
         for (Product product: products) {
             if (product == null) break;
             sum += product.getPrice();
-            System.out.println(sum);
+            System.out.println(product);
         }
         System.out.println("Итого: " + sum);
     }
