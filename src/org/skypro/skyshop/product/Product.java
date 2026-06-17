@@ -3,8 +3,8 @@ package org.skypro.skyshop.product;
 public class Product {
 
     // Поля
-    private String name;
-    private int price;
+    private final String name;
+    private final int price;
 
     // Конструктор
     public Product (String name, int price) {
