@@ -22,3 +22,4 @@ public class Product {
                 "цена = " +getPrice() + ")";
     }
 }
+//11
