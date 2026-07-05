@@ -1,18 +1,17 @@
 package org.skypro.skyshop;
 import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.SimpleProduct;
 
-import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
         org.skypro.skyshop.basket.ProductBasket basket = new org.skypro.skyshop.basket.ProductBasket();
         //Товары
-        Product phone = new Product("phone", 1000);
-        Product screen = new Product("screen", 450);
-        Product speaker = new Product("speaker", 75);
-        Product microphone = new Product("microphone", 150);
-        Product train = new Product("train", 150);
+        SimpleProduct phone = new SimpleProduct("phone",100);
+        SimpleProduct screen = new SimpleProduct("screen", 75);
+        SimpleProduct speaker = new SimpleProduct("speaker",15);
+        SimpleProduct microphone = new SimpleProduct("microphone",25);
+        SimpleProduct train = new SimpleProduct("train",45);
 
         System.out.println("Добавлени товара в корзину");
         basket.addProduct(phone);
@@ -51,6 +50,11 @@ public class App {
         System.out.println("Поиск товара по имени в пустой корзине");
         System.out.println(basket.search("screen"));
         basket.printSum1();
+        basket.printSeparator();
+        basket.printNumberOfSpecialItems();
+
+
+
     }
 }
 //1
