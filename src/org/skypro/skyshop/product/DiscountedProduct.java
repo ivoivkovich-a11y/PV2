@@ -19,11 +19,11 @@ public class DiscountedProduct extends Product {
 
     @Override
     public boolean isSpecial() {
-        return false;
+        return true;
     }
 
     @Override
     public String toString() {
-        return getName() + ": " + getPrice() + "(" + discountPrice + ")";
+        return getName() + ": " + getPrice() + "(" + discountPrice + "%)";
     }
 }

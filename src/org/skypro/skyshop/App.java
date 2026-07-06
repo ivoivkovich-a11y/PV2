@@ -1,4 +1,6 @@
 package org.skypro.skyshop;
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 
@@ -12,12 +14,21 @@ public class App {
         SimpleProduct speaker = new SimpleProduct("speaker",15);
         SimpleProduct microphone = new SimpleProduct("microphone",25);
         SimpleProduct train = new SimpleProduct("train",45);
+        DiscountedProduct phoneNEW = new DiscountedProduct("phone",100, 20);
+        FixPriceProduct screenNEW = new FixPriceProduct("screen");
 
-        System.out.println("Добавлени товара в корзину");
+        //System.out.println("Добавлени товара в корзину");
         basket.addProduct(phone);
         System.out.println(phone);
         basket.printSeparator();
+        basket.addProduct(phoneNEW);
+        System.out.println(phoneNEW);
+        basket.addProduct(screenNEW);
+        basket.printSeparator();
 
+        System.out.println(screenNEW);
+        basket.printNumberOfSpecialItems();
+/*
         System.out.println("Добавлени товара в корзину, в которой нет свободного места.");
         basket.addProduct(screen);
         basket.addProduct(speaker);
@@ -52,7 +63,7 @@ public class App {
         basket.printSum1();
         basket.printSeparator();
         basket.printNumberOfSpecialItems();
-
+*/
 
 
     }
