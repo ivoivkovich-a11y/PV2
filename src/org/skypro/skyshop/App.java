@@ -14,12 +14,18 @@ public class App {
     public static void main(String[] args) {
         org.skypro.skyshop.basket.ProductBasket basket = new org.skypro.skyshop.basket.ProductBasket();
         //Товары
-        SimpleProduct phone = new SimpleProduct("phone", 100);
-        SimpleProduct screen = new SimpleProduct("screen", 75);
-        SimpleProduct speaker = new SimpleProduct("speaker", 15);
+       // SimpleProduct phone = new SimpleProduct("phone", 100);
+        SimpleProduct phone = new SimpleProduct("    ", 100);
+       // SimpleProduct screen = new SimpleProduct("screen", 75);
+        SimpleProduct screen = new SimpleProduct(null, 75);
+        //SimpleProduct speaker = new SimpleProduct("speaker", 0);
+        SimpleProduct speaker = new SimpleProduct("speaker", -0);
         SimpleProduct microphone = new SimpleProduct("microphone", 25);
         SimpleProduct train = new SimpleProduct("train", 45);
-        DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, 20);
+       // DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, 20);
+       // DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, -20);
+        DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, 200);
+
         FixPriceProduct screenNEW = new FixPriceProduct("screen");
 
         SearchEngine searchEngine = new SearchEngine(10);
@@ -41,58 +47,6 @@ public class App {
         searchEngine.add(shoppingGuide);
         searchEngine.add(theRightChoice);
         System.out.println(Arrays.toString(searchEngine.search("тел")));
-
-        //getStringRepresentation(engine, "телеф");
-        // printSearchResults(engine, "телеф");
-/*
-
-        //System.out.println("Добавлени товара в корзину");
-        basket.addProduct(phone);
-        System.out.println(phone);
-        basket.printSeparator();
-        basket.addProduct(phoneNEW);
-        System.out.println(phoneNEW);
-        basket.addProduct(screenNEW);
-        basket.printSeparator();
-
-        System.out.println(screenNEW);
-        basket.printNumberOfSpecialItems();
-
-        System.out.println("Добавлени товара в корзину, в которой нет свободного места.");
-        basket.addProduct(screen);
-        basket.addProduct(speaker);
-        basket.addProduct(microphone);
-        basket.addProduct(screen);
-        basket.addProduct(train);
-        basket.printSeparator();
-
-        System.out.println("Печать содержимого корзины с несколькими товарами и получение стоимости корзины с несколькими товарами");
-        basket.printSum1();
-        basket.printSeparator();
-
-        System.out.println("Получение стоимости корзины с несколькими товарами");
-        basket.printSum();
-        basket.printSeparator();
-
-        System.out.println("Поиск товара, который есть в корзине");
-        System.out.println( basket.search("microphone"));
-        basket.printSeparator();
-
-        System.out.println("Поиск товара, которого нет в корзине");
-        System.out.println(basket.search("Килька"));
-        basket.printSeparator();
-
-        System.out.println("Очистка корзины, печать содержимого пустой корзины, получение стоимости пустой корзины.");
-        basket.cleaning();
-        basket.printSum1();
-        basket.printSeparator();
-
-        System.out.println("Поиск товара по имени в пустой корзине");
-        System.out.println(basket.search("screen"));
-        basket.printSum1();
-        basket.printSeparator();
-        basket.printNumberOfSpecialItems();
-*/
 
     }
 
