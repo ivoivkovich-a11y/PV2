@@ -5,6 +5,7 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.Article;
 import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -75,9 +76,30 @@ public class App {
             System.out.println("Скидку должна быть от нуля до ста");
         }
 
+        SearchEngine engine = new SearchEngine(5);
+
+        engine.add(new SimpleProduct("телефон ультратонкий", 50));
+        engine.add(new SimpleProduct("телефонный брелок", 100));
+        engine.add(new SimpleProduct("телефон", 60));
+
+
+        try {
+            Searchable result = engine.findMostRelevant("телефон");
+            System.out.println("Найден лучший результат: " + result.getStringRepresentation());
+        } catch (SearchEngine.BestResultNotFound e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        // 2. Сценарий: объект НЕ найден
+        try {
+            Searchable result = engine.findMostRelevant("Экран");
+            System.out.println("Найден лучший результат: " + result.getStringRepresentation());
+        } catch (SearchEngine.BestResultNotFound e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
 
     }
-}
 
 
 //11

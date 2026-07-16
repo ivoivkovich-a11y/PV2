@@ -40,5 +40,57 @@ public class SearchEngine {
 
         return results;
     }
-    public void
+
+    public class BestResultNotFound extends Exception {
+        public BestResultNotFound(String query) {
+            super("Не найден подходящий результат для запроса: " + query);
+        }
+    }
+
+    public Searchable findMostRelevant(String search) throws BestResultNotFound {
+        if (search == null || search.isBlank()) {
+            throw new BestResultNotFound(search);
+        }
+
+        Searchable best = null;
+        int maxCount = 0;
+
+        for (Searchable item : searchables) {
+            if (item == null) {
+                continue;
+            }
+
+            String term = item.getSearchTerm();
+            int count = countOccurrences(term, search);
+
+            if (count > maxCount) {
+                maxCount = count;
+                best = item;
+            }
+        }
+
+        if (best == null) {
+            throw new BestResultNotFound(search);
+        }
+
+        return best;
+    }
+
+    private int countOccurrences(String str, String substring) {
+        if (str == null || substring == null || substring.isEmpty()) {
+            return 0;
+        }
+
+        int count = 0;
+        int index = 0;
+
+        int foundIndex = str.indexOf(substring, index);
+
+        while (foundIndex != -1) {
+            count++;
+            index = foundIndex + substring.length();
+            foundIndex = str.indexOf(substring, index);
+        }
+        return count;
+    }
 }
