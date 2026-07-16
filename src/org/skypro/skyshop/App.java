@@ -14,17 +14,13 @@ public class App {
     public static void main(String[] args) {
         org.skypro.skyshop.basket.ProductBasket basket = new org.skypro.skyshop.basket.ProductBasket();
         //Товары
-       // SimpleProduct phone = new SimpleProduct("phone", 100);
-        SimpleProduct phone = new SimpleProduct("    ", 100);
-       // SimpleProduct screen = new SimpleProduct("screen", 75);
-        SimpleProduct screen = new SimpleProduct(null, 75);
-        //SimpleProduct speaker = new SimpleProduct("speaker", 0);
-        SimpleProduct speaker = new SimpleProduct("speaker", -0);
+        /*
+        SimpleProduct phone = new SimpleProduct("phone", 100);
+        SimpleProduct screen = new SimpleProduct("screen", 75);
+        SimpleProduct speaker = new SimpleProduct("speaker", 0);
         SimpleProduct microphone = new SimpleProduct("microphone", 25);
         SimpleProduct train = new SimpleProduct("train", 45);
-       // DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, 20);
-       // DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, -20);
-        DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, 200);
+        DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, 20);
 
         FixPriceProduct screenNEW = new FixPriceProduct("screen");
 
@@ -43,13 +39,44 @@ public class App {
         Article theRightChoice = new Article("Правильный выбор", "Правильно подобранное количество ОЗУ поможет быстро выполнять поставленные задачи");
 
 
-        searchEngine.add(phoneArticle);
+        searchEngine.add(phoneArtiycle);
         searchEngine.add(shoppingGuide);
         searchEngine.add(theRightChoice);
         System.out.println(Arrays.toString(searchEngine.search("тел")));
+        */
+        //Проверки
+        try {
+            SimpleProduct phone = new SimpleProduct("    ", 100);
+            SearchEngine searchEngine = new SearchEngine(10);
+            searchEngine.add(phone);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Наименование только из пробелов");
+        }
+
+        try {
+            SimpleProduct phone = new SimpleProduct(null, 100);
+            SearchEngine searchEngine = new SearchEngine(10);
+            searchEngine.add(phone);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Наименование null");
+        }
+        try {
+            SimpleProduct screen = new SimpleProduct("screen", -100);
+            SearchEngine searchEngine = new SearchEngine(10);
+            searchEngine.add(screen);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Цена не может быть меньше или равна нулю");
+        }
+        try {
+            DiscountedProduct phoneNEW = new DiscountedProduct("phoneNEW", 100, -20);
+            SearchEngine searchEngine = new SearchEngine(10);
+            searchEngine.add(phoneNEW);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Скидку должна быть от нуля до ста");
+        }
+
 
     }
-
 }
 
 
