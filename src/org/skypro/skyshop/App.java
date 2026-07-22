@@ -5,6 +5,7 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.Article;
 import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -14,12 +15,14 @@ public class App {
     public static void main(String[] args) {
         org.skypro.skyshop.basket.ProductBasket basket = new org.skypro.skyshop.basket.ProductBasket();
         //Товары
+        /*
         SimpleProduct phone = new SimpleProduct("phone", 100);
         SimpleProduct screen = new SimpleProduct("screen", 75);
-        SimpleProduct speaker = new SimpleProduct("speaker", 15);
+        SimpleProduct speaker = new SimpleProduct("speaker", 0);
         SimpleProduct microphone = new SimpleProduct("microphone", 25);
         SimpleProduct train = new SimpleProduct("train", 45);
         DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, 20);
+
         FixPriceProduct screenNEW = new FixPriceProduct("screen");
 
         SearchEngine searchEngine = new SearchEngine(10);
@@ -37,66 +40,66 @@ public class App {
         Article theRightChoice = new Article("Правильный выбор", "Правильно подобранное количество ОЗУ поможет быстро выполнять поставленные задачи");
 
 
-        searchEngine.add(phoneArticle);
+        searchEngine.add(phoneArtiycle);
         searchEngine.add(shoppingGuide);
         searchEngine.add(theRightChoice);
         System.out.println(Arrays.toString(searchEngine.search("тел")));
+        */
+        //Проверки
+        try {
+            SimpleProduct phone = new SimpleProduct("    ", 100);
+            SearchEngine searchEngine = new SearchEngine(10);
+            searchEngine.add(phone);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Наименование только из пробелов");
+        }
 
-        //getStringRepresentation(engine, "телеф");
-        // printSearchResults(engine, "телеф");
-/*
+        try {
+            SimpleProduct phone = new SimpleProduct(null, 100);
+            SearchEngine searchEngine = new SearchEngine(10);
+            searchEngine.add(phone);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Наименование null");
+        }
+        try {
+            SimpleProduct screen = new SimpleProduct("screen", -100);
+            SearchEngine searchEngine = new SearchEngine(10);
+            searchEngine.add(screen);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Цена не может быть меньше или равна нулю");
+        }
+        try {
+            DiscountedProduct phoneNEW = new DiscountedProduct("phoneNEW", 100, -20);
+            SearchEngine searchEngine = new SearchEngine(10);
+            searchEngine.add(phoneNEW);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Скидку должна быть от нуля до ста");
+        }
 
-        //System.out.println("Добавлени товара в корзину");
-        basket.addProduct(phone);
-        System.out.println(phone);
-        basket.printSeparator();
-        basket.addProduct(phoneNEW);
-        System.out.println(phoneNEW);
-        basket.addProduct(screenNEW);
-        basket.printSeparator();
+        SearchEngine engine = new SearchEngine(5);
 
-        System.out.println(screenNEW);
-        basket.printNumberOfSpecialItems();
+        engine.add(new SimpleProduct("телефон ультратонкий", 50));
+        engine.add(new SimpleProduct("телефонный брелок", 100));
+        engine.add(new SimpleProduct("телефон", 60));
 
-        System.out.println("Добавлени товара в корзину, в которой нет свободного места.");
-        basket.addProduct(screen);
-        basket.addProduct(speaker);
-        basket.addProduct(microphone);
-        basket.addProduct(screen);
-        basket.addProduct(train);
-        basket.printSeparator();
 
-        System.out.println("Печать содержимого корзины с несколькими товарами и получение стоимости корзины с несколькими товарами");
-        basket.printSum1();
-        basket.printSeparator();
+        try {
+            Searchable result = engine.findMostRelevant("телефон");
+            System.out.println("Найден лучший результат: " + result.getStringRepresentation());
+        } catch (SearchEngine.BestResultNotFound e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
 
-        System.out.println("Получение стоимости корзины с несколькими товарами");
-        basket.printSum();
-        basket.printSeparator();
-
-        System.out.println("Поиск товара, который есть в корзине");
-        System.out.println( basket.search("microphone"));
-        basket.printSeparator();
-
-        System.out.println("Поиск товара, которого нет в корзине");
-        System.out.println(basket.search("Килька"));
-        basket.printSeparator();
-
-        System.out.println("Очистка корзины, печать содержимого пустой корзины, получение стоимости пустой корзины.");
-        basket.cleaning();
-        basket.printSum1();
-        basket.printSeparator();
-
-        System.out.println("Поиск товара по имени в пустой корзине");
-        System.out.println(basket.search("screen"));
-        basket.printSum1();
-        basket.printSeparator();
-        basket.printNumberOfSpecialItems();
-*/
+        // 2. Сценарий: объект НЕ найден
+        try {
+            Searchable result = engine.findMostRelevant("Экран");
+            System.out.println("Найден лучший результат: " + result.getStringRepresentation());
+        } catch (SearchEngine.BestResultNotFound e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
 
     }
 
-}
 
-
-//1
+//11

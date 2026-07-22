@@ -10,7 +10,9 @@ public abstract class Product implements Searchable {
 
     // Конструктор
     public Product(String name) {
-        this.name = name;
+        if ( name == null || name.isBlank()){
+            throw new IllegalArgumentException("Название продукта не может быть пустой строкой или null");
+        }else {this.name = name;}
         //this.price = price;
     }
     // Геттеры
@@ -45,4 +47,4 @@ public abstract class Product implements Searchable {
 }
 
 
-//1
+//11
