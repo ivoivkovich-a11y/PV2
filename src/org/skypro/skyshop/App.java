@@ -2,6 +2,7 @@ package org.skypro.skyshop;
 
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.Article;
 import org.skypro.skyshop.search.SearchEngine;
@@ -9,6 +10,7 @@ import org.skypro.skyshop.search.Searchable;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class App {
@@ -97,8 +99,37 @@ public class App {
         } catch (SearchEngine.BestResultNotFound e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
-    }
+        //Проверки
+        //Добавление продуктов в корзину
+        basket.addProduct(new SimpleProduct("phone", 100));
+        basket.addProduct(new SimpleProduct("screen", 75));
+        basket.addProduct(new SimpleProduct("speaker", 35));
+        basket.addProduct(new SimpleProduct("microphone", 25));
+        basket.addProduct(new SimpleProduct("train", 45));
+        //basket.printSeparator();
+        //Удаление существующего продукта и печать удалённого продукта
+        List<Product> removed = basket.removeByName("phone");
+        basket.printSeparator();
+        for (Product p : removed) {
+            System.out.println("Удалённый товар");
+            System.out.println(p);
+        }
+        //Вывод содержимого корзины с помощью метода "printBasket"
+        basket.printSeparator();
+        System.out.println("Корзина без удалённого товара");
+        basket.printBasket();
+        basket.printSeparator();
+        //Удаление не существующего продукта и печать удалённого продукта
+        List<Product> removed2 = basket.removeByName("Кирпич");
+        if (removed2.isEmpty()) {
+            System.out.println("Список пуст");
+        }
+        basket.printSeparator();
+        System.out.println("Содержимое корзины");
+        basket.printBasket();
 
+
+    }
     }
 
 

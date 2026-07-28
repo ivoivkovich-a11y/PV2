@@ -1,50 +1,35 @@
 package org.skypro.skyshop.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchEngine {
 
-    private final Searchable[] searchables;
+    private final List<Searchable> searchables;
 
-    // Конструктор
-    public SearchEngine(int size) {
-        this.searchables = new Searchable[size];
-    }
+    public SearchEngine(int size) {this.searchables = new ArrayList<>(size);}
 
     public void add(Searchable searchable) {
-        for (int i = 0; i < searchables.length; i++) {
-            if (searchables[i] == null) {
-                searchables[i] = searchable;
-                return;
-            }
+        if (searchables.size() < searchables.size()) {
+            searchables.add(searchable);
+        } else {
+            System.out.println("Массив заполнен");
         }
-        System.out.println("Массив заполнен");
     }
 
-    public Searchable[] search(String query) {
-        Searchable[] results = new Searchable[5];
-        int count = 0;
+    public List<Searchable> search(String query) {
+        List<Searchable> results = new ArrayList<>();
 
         for (Searchable item : searchables) {
-            if (item == null) {
-                continue;
-            }
-
             if (item.getSearchTerm().contains(query)) {
-                results[count] = item;
-                count++;
-
-                if (count == 5) {
-                    break;
-                }
+                results.add(item);
             }
         }
-
         return results;
     }
 
     public class BestResultNotFound extends Exception {
-        public BestResultNotFound(String query) {
-            super("Не найден подходящий результат для запроса: " + query);
-        }
+        public BestResultNotFound(String query) {super("Не найден подходящий результат для запроса: " + query);}
     }
 
     public Searchable findMostRelevant(String search) throws BestResultNotFound {
@@ -56,10 +41,6 @@ public class SearchEngine {
         int maxCount = 0;
 
         for (Searchable item : searchables) {
-            if (item == null) {
-                continue;
-            }
-
             String term = item.getSearchTerm();
             int count = countOccurrences(term, search);
 
