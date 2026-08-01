@@ -1,5 +1,8 @@
 package org.skypro.skyshop.search;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 public class SearchEngine {
 
     private final Searchable[] searchables;
@@ -19,8 +22,9 @@ public class SearchEngine {
         System.out.println("Массив заполнен");
     }
 
-    public Searchable[] search(String query) {
-        Searchable[] results = new Searchable[5];
+    // Возвращает отсортированную по имени мапу (ключ — имя, значение — сам объект Searchable)
+    public Map<String, Searchable> search(String query) {
+        Map<String, Searchable> results = new TreeMap<>();
         int count = 0;
 
         for (Searchable item : searchables) {
@@ -29,7 +33,7 @@ public class SearchEngine {
             }
 
             if (item.getSearchTerm().contains(query)) {
-                results[count] = item;
+                results.put(item.getName(), item);
                 count++;
 
                 if (count == 5) {

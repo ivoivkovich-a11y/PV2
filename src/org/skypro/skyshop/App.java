@@ -7,15 +7,15 @@ import org.skypro.skyshop.search.Article;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Map;
 
 
 public class App {
     public static void main(String[] args) {
         org.skypro.skyshop.basket.ProductBasket basket = new org.skypro.skyshop.basket.ProductBasket();
         //Товары
-        /*
+
         SimpleProduct phone = new SimpleProduct("phone", 100);
         SimpleProduct screen = new SimpleProduct("screen", 75);
         SimpleProduct speaker = new SimpleProduct("speaker", 0);
@@ -35,16 +35,28 @@ public class App {
         searchEngine.add(phoneNEW);
         searchEngine.add(screenNEW);
 
-        Article phoneArticle = new Article("телефон", "Быстрый и с больним объёмом ОЗУ");
+        Article phoneArticle = new Article("телефон", "Быстрый и с большим объёмом ОЗУ");
         Article shoppingGuide = new Article("Как определиться с товаром", "Определитесь с объёмом ОЗУ");
         Article theRightChoice = new Article("Правильный выбор", "Правильно подобранное количество ОЗУ поможет быстро выполнять поставленные задачи");
 
-
-        searchEngine.add(phoneArtiycle);
+        searchEngine.add(phoneArticle);
         searchEngine.add(shoppingGuide);
         searchEngine.add(theRightChoice);
-        System.out.println(Arrays.toString(searchEngine.search("тел")));
-        */
+
+        // Вывод результатов поиска из отсортированной по имени Map
+        System.out.println(" Результаты поиска по запросу 'тел'");
+        Map<String, Searchable> searchResults = searchEngine.search("тел");
+
+        if (searchResults.isEmpty()) {
+            System.out.println("Результаты не найдены");
+        } else {
+            for (Map.Entry<String, Searchable> entry : searchResults.entrySet()) {
+                System.out.println("Название: " + entry.getKey());
+                System.out.println("Содержание: " + entry.getValue().getStringRepresentation());
+                System.out.println();
+            }
+        }
+/*
         //Проверки
         try {
             SimpleProduct phone = new SimpleProduct("    ", 100);
@@ -98,8 +110,8 @@ public class App {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
-
+*/
     }
-
-
+}
 //11
+
