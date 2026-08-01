@@ -1,5 +1,4 @@
 package org.skypro.skyshop.search;
-
 import java.util.Map;
 import java.util.TreeMap;
 

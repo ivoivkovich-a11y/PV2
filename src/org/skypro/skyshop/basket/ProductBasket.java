@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.ArrayList;
 
 
-
 public class ProductBasket {
     private final Map<String, List<Product>> products = new LinkedHashMap<>();
 

@@ -56,7 +56,7 @@ public class App {
                 System.out.println();
             }
         }
-/*
+  /*
         //Проверки
         try {
             SimpleProduct phone = new SimpleProduct("    ", 100);
