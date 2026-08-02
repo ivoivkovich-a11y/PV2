@@ -18,7 +18,7 @@ public class App {
 
         SimpleProduct phone = new SimpleProduct("phone", 100);
         SimpleProduct screen = new SimpleProduct("screen", 75);
-        SimpleProduct speaker = new SimpleProduct("speaker", 0);
+        SimpleProduct speaker = new SimpleProduct("speaker", 50);
         SimpleProduct microphone = new SimpleProduct("microphone", 25);
         SimpleProduct train = new SimpleProduct("train", 45);
         DiscountedProduct phoneNEW = new DiscountedProduct("phone", 100, 20);
@@ -55,6 +55,14 @@ public class App {
                 System.out.println("Содержание: " + entry.getValue().getStringRepresentation());
                 System.out.println();
             }
+        }
+
+        // Проверка исключения для нулевой цены
+        System.out.println("Проверка исключения цена ноль");
+        try {
+            SimpleProduct invalidProduct = new SimpleProduct("invalid", 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
   /*
         //Проверки

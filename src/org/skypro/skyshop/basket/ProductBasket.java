@@ -55,6 +55,13 @@ public class ProductBasket {
     public void cleaning() {
         products.clear();
     }
+
+    // Удаление продуктов по имени
+    public List<Product> removeProduct(String productName) {
+        List<Product> removed = products.remove(productName);
+        return removed != null ? removed : new ArrayList<>();
+    }
+
     public void printNumberOfSpecialItems() {
         int total = 0;
         int specialCount = 0;
