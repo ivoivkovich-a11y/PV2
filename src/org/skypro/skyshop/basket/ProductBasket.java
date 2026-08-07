@@ -28,6 +28,10 @@ public class ProductBasket {
 
     // Печать каждой позиции и итого
     public void printSum1(){
+        if (products.isEmpty()) {
+            System.out.println("В корзине пусто");
+            return;
+        }
         int sum = 0;
         if (!products.isEmpty()) {
             for (List<Product> productList : products.values()) {
@@ -78,6 +82,30 @@ public class ProductBasket {
 
         System.out.println("Итого: " + total);
         System.out.println("Специальных товаров: " + specialCount);
+    }
+    //Удаление продукта по имени
+    public List<Product> removeByName(String name) {
+        List<Product> removed = new LinkedList<>();
+        Iterator<Product> iterator = products.iterator();
+
+        while (iterator.hasNext()) {
+            Product p = iterator.next();
+            if (p.getName().equals(name)) {
+                removed.add(p);
+                iterator.remove();   // корректное удаление из списка
+            }
+        }
+        return removed;
+    }
+    //Печать продуктов
+    public void printBasket() {
+        if (products.isEmpty()) {
+            System.out.println("Корзина пустая");
+            return;
+        }
+        for (Product p : products) {
+            System.out.println(p);
+        }
     }
 }
 
