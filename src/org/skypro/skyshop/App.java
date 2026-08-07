@@ -7,11 +7,12 @@ import org.skypro.skyshop.search.Article;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.Set;
 
 
 public class App {
+    private static Object test3;
+
     public static void main(String[] args) {
         org.skypro.skyshop.basket.ProductBasket basket = new org.skypro.skyshop.basket.ProductBasket();
         //Товары
@@ -43,16 +44,15 @@ public class App {
         searchEngine.add(shoppingGuide);
         searchEngine.add(theRightChoice);
 
-        // Вывод результатов поиска из отсортированной по имени Map
+        // Вывод результатов поиска из отсортированной по имени
         System.out.println(" Результаты поиска по запросу 'тел'");
-        Map<String, Searchable> searchResults = searchEngine.search("тел");
+        Set<Searchable> searchResults = searchEngine.search("тел");
 
         if (searchResults.isEmpty()) {
             System.out.println("Результаты не найдены");
         } else {
-            for (Map.Entry<String, Searchable> entry : searchResults.entrySet()) {
-                System.out.println("Название: " + entry.getKey());
-                System.out.println("Содержание: " + entry.getValue().getStringRepresentation());
+            for (Searchable item : searchResults) {
+                System.out.println(item.getStringRepresentation());
                 System.out.println();
             }
         }
@@ -63,6 +63,49 @@ public class App {
             SimpleProduct invalidProduct = new SimpleProduct("invalid", 0);
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        // Проверка Поиск с разной длиной
+        System.out.println("Тест Поиск с разной длиной");
+        SearchEngine test1 = new SearchEngine(10);
+        test1.add(new SimpleProduct("phone", 100));
+        test1.add(new SimpleProduct("screen", 75));
+        test1.add(new SimpleProduct("speaker", 50));
+        test1.add(new SimpleProduct("microphone", 25));
+
+        Set<Searchable> results1 = test1.search("s");
+        System.out.println("Результаты поиска 's' сортировка от большего к меньшему");
+        for (Searchable item : results1) {
+            System.out.println(item.getStringRepresentation());
+        }
+
+        // Проверка Поиск с одинаковой длиной
+        System.out.println("Тест Поиск с одинаковой длиной");
+        SearchEngine test2 = new SearchEngine(10);
+        test2.add(new SimpleProduct("phone", 100));
+        test2.add(new SimpleProduct("screen", 75));
+        test2.add(new SimpleProduct("speaker", 50));
+        test2.add(new SimpleProduct("microphone", 25));
+        test2.add(new SimpleProduct("train", 45));
+
+        Set<Searchable> results2 = test2.search("n");
+        System.out.println("Результаты поиска 'n' сортировка от меньшего к большему");
+        for (Searchable item : results2) {
+            System.out.println(item.getStringRepresentation());
+        }
+
+        // Проверка Комбинированная сортировка (разные длины + натуральный порядок)
+        System.out.println("Тест Комбинированная сортировка");
+        SearchEngine test3 = new SearchEngine(10);
+        test3.add(new SimpleProduct("phone", 100));
+        test3.add(new SimpleProduct("screen", 75));
+        test3.add(new SimpleProduct("speaker", 50));
+        test3.add(new SimpleProduct("microphone", 25));
+
+        Set<Searchable> results3 = test3.search("s");
+        System.out.println("Результаты поиска 's'");
+        for (Searchable item : results3) {
+            System.out.println(item.getStringRepresentation());
         }
   /*
         //Проверки

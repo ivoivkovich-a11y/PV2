@@ -32,4 +32,17 @@ public final class Article implements Searchable {
     public String getName() {
         return nameArticle;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return nameArticle.equals(article.nameArticle);
+    }
+
+    @Override
+    public int hashCode() {
+        return nameArticle.hashCode();
+    }
 }
