@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Collection;
 
 
 public class ProductBasket {
@@ -17,25 +18,21 @@ public class ProductBasket {
 
     // Печать общей стоимости корзины
     public void printSum(){
-        int sum = 0;
-        for (List<Product> productList : products.values()) {
-            for (Product product : productList) {
-                sum += product.getPrice();
-            }
-        }
+        int sum = products.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
         System.out.println(sum);
     }
 
     // Печать каждой позиции и итого
     public void printSum1(){
-        int sum = 0;
         if (!products.isEmpty()) {
-            for (List<Product> productList : products.values()) {
-                for (Product product : productList) {
-                    sum += product.getPrice();
-                    System.out.println(product);
-                }
-            }
+            int sum = products.values().stream()
+                    .flatMap(Collection::stream)
+                    .peek(product -> System.out.println(product))
+                    .mapToInt(Product::getPrice)
+                    .sum();
             System.out.println("Итого: " + sum);
         } else System.out.println("В корзине пусто");
 
@@ -63,21 +60,24 @@ public class ProductBasket {
     }
 
     public void printNumberOfSpecialItems() {
-        int total = 0;
-        int specialCount = 0;
+        int total = products.values().stream()
+                .flatMap(Collection::stream)
+                .peek(System.out::println)
+                .mapToInt(Product::getPrice)
+                .sum();
 
-        for (List<Product> productList : products.values()) {
-            for (Product p : productList) {
-                System.out.println(p.toString());
-                total += p.getPrice();
-                if (p.isSpecial()) {
-                    specialCount++;
-                }
-            }
-        }
+        long specialCount = getSpecialCount();
 
         System.out.println("Итого: " + total);
         System.out.println("Специальных товаров: " + specialCount);
+    }
+
+    // Подсчёт количества специальных товаров
+    private long getSpecialCount() {
+        return products.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 }
 
