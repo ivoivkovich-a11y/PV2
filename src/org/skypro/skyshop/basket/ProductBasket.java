@@ -28,9 +28,11 @@ public class ProductBasket {
     // Печать каждой позиции и итого
     public void printSum1(){
         if (!products.isEmpty()) {
+            products.values().stream()
+                    .flatMap(Collection::stream)
+                    .forEach(System.out::println);
             int sum = products.values().stream()
                     .flatMap(Collection::stream)
-                    .peek(product -> System.out.println(product))
                     .mapToInt(Product::getPrice)
                     .sum();
             System.out.println("Итого: " + sum);
@@ -60,9 +62,12 @@ public class ProductBasket {
     }
 
     public void printNumberOfSpecialItems() {
+        products.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(System.out::println);
+
         int total = products.values().stream()
                 .flatMap(Collection::stream)
-                .peek(System.out::println)
                 .mapToInt(Product::getPrice)
                 .sum();
 
