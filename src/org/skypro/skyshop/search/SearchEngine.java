@@ -3,6 +3,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,18 +32,10 @@ public class SearchEngine {
 
     // Возвращает отсортированный Set (сортировка: от длинного имени к короткому, затем по натуральному порядку)
     public Set<Searchable> search(String query) {
-        Set<Searchable> results = new TreeSet<>(SEARCH_RESULT_COMPARATOR);
-        int count = 0;
-        for (Searchable item : searchables) {
-            if (item.getSearchTerm().contains(query)) {
-                results.add(item);
-                count++;
-                if (count == 5) {
-                    break;
-                }
-            }
-        }
-        return results;
+        return searchables.stream()
+                .filter(item -> item.getSearchTerm().contains(query))
+                .limit(5)
+                .collect(Collectors.toCollection(() -> new TreeSet<>(SEARCH_RESULT_COMPARATOR)));
     }
 
     public class BestResultNotFound extends Exception {
