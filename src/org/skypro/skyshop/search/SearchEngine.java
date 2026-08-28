@@ -5,6 +5,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchEngine {
 
     private final Set<Searchable> searchables;
@@ -36,9 +39,7 @@ public class SearchEngine {
     }
 
     public class BestResultNotFound extends Exception {
-        public BestResultNotFound(String query) {
-            super("Не найден подходящий результат для запроса: " + query);
-        }
+        public BestResultNotFound(String query) {super("Не найден подходящий результат для запроса: " + query);}
     }
 
     public Searchable findMostRelevant(String search) throws BestResultNotFound {
